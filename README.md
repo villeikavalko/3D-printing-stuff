@@ -1,5 +1,4 @@
 # 3D-printing-stuff
-Config files from own projects
 
 Hello World!
 

@@ -1,0 +1,200 @@
+[delta_calibrate]
+radius = 130
+speed = 50
+horizontal_move_z = 3
+samples = 2
+sample_retract_dist = 2.0
+
+[SKIP bed_mesh]
+speed = 40
+horizontal_move_z = 5
+bed_radius = 170
+round_probe_count = 5
+split_delta_z = .025
+algorithm = lagrange
+
+[tmc2130 stepper_a]
+cs_pin = ar34
+microsteps = 32
+interpolate = True
+run_current = 1.0
+driver_sgt = 5
+diag1_pin = ar54
+
+[tmc2130 stepper_b]
+cs_pin = ar32
+microsteps = 32
+interpolate = True
+run_current = 1.0
+driver_sgt = 5
+diag1_pin = ar56
+
+[tmc2130 stepper_c]
+cs_pin = ar27
+microsteps = 32
+interpolate = True
+run_current = 1.0
+driver_sgt = 5
+diag1_pin = ar58
+
+[stepper_a]
+step_pin = ar38
+dir_pin = ar36
+enable_pin = !ar40
+endstop_pin = !^ar54
+step_distance = 0.00625
+position_endstop = 400.00
+homing_speed = 40
+arm_length = 415.00
+
+[stepper_b]
+step_pin = ar28
+dir_pin = ar26
+enable_pin = !ar30
+endstop_pin = !^ar56
+step_distance = 0.00625
+position_endstop = 400.00
+homing_speed = 40
+
+[stepper_c]
+step_pin = ar23
+dir_pin = ar29
+enable_pin = !ar25
+endstop_pin = !^ar58
+step_distance = 0.00625
+position_endstop = 400.00
+homing_speed = 40
+
+[extruder]
+step_pin = ar44
+dir_pin = ar42
+enable_pin = !ar46
+step_distance = 0.0011947431302270011
+nozzle_diameter = 0.400
+filament_diameter = 1.750
+heater = heater 0
+
+[SKIP_extruder1]
+step_pin = ar33
+dir_pin = ar31
+enable_pin = !ar35
+steps_per_mm = 791.86
+nozzle_diameter = 0.400
+filament_diameter = 1.750
+heater = heater 0
+
+[SKIP_extruder2]
+step_pin = ar41
+dir_pin = ar39
+enable_pin = !ar43
+steps_per_mm = 791.86
+nozzle_diameter = 0.400
+filament_diameter = 1.750
+heater = heater 0
+
+[sensor hotend_rtd]
+sensor_type = MAX31865
+sensor_pin = effector:PC0
+min_temp = 0
+max_temp = 400
+spi_mode = 3
+spi_speed = 8000000
+rtd_nominal_r = 100
+rtd_reference_r = 430
+rtd_num_of_wires = 2
+rtd_use_50hz_filter = false
+
+[sensor hotend_ntc]
+sensor_type = NTC 100K beta 3950
+sensor_pin = effector:PC4
+min_temp = 0
+max_temp = 270
+
+[sensor bed_ntc]
+sensor_type = NTC 100K beta 3950
+sensor_pin = analog10
+min_temp = 0
+max_temp = 270
+
+[heater 0]
+sensor = hotend_rtd
+heater_pin = effector:PC1
+control = pid
+pid_kp = 24.103
+pid_ki = 0.846
+pid_kd = 171.737
+protect_period_heat = 90
+protect_hysteresis_heat = 1
+protect_period = 10
+protect_hysteresis_runaway = 10
+protect_hysteresis_cooling = 1.0
+protect_hysteresis_idle = 5.0
+min_temp = 10
+max_temp = 270
+
+[heater_bed]
+sensor = bed_ntc
+heater_pin = ar8
+protect_period_heat = 30
+protect_hysteresis_heat = 1
+protect_period = 10
+protect_hysteresis_runaway = 10
+protect_hysteresis_cooling = 0.001
+protect_hysteresis_idle = 5.0
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 45.233
+pid_ki = 0.791
+pid_kd = 646.263
+
+[fan 0]
+pin = effector:PC5
+
+[SKIP heater_fan hotend]
+pin = ar13
+heater = heater 0
+heater_temp = 40.0
+
+[SKIP motor_fan]
+pin = ar10
+
+[SKIP chamber]
+sensor = hotend_ntc
+pin = ar11
+control = watermark
+target_temp = 25.
+
+[SKIP idle_timeout]
+timeout = 600
+
+[mcu]
+serial = /dev/ttyACM0
+baud = 115200
+pin_map = arduino
+
+[mcu effector]
+serial = /dev/ttyUSB0
+baud = 250000
+restart_method = arduino
+
+[printer]
+name = Oulware Delta
+kinematics = delta
+delta_radius = 155
+minimum_z_position = -20.0
+max_velocity = 300
+max_accel = 1500
+max_accel_to_decel_ratio = 1.0
+max_z_velocity = 100
+square_corner_velocity = 15
+require_home_after_motor_off = false
+allow_move_without_home = true
+sw_limit_check_enabled = false
+
+[virtual_sdcard]
+path = ~/gcode/uploads/
+
+[reprapgui]
+name = OULWare Kossel
+http = 20000
